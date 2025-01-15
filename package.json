@@ -1,0 +1,28 @@
+{
+  "name": "http-connector",
+  "version": "1.0.0",
+  "description": "generic http connector",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmeikle/node-http-connector.git"
+  },
+  "keywords": [
+    "node",
+    "http",
+    "client",
+    "connector"
+  ],
+  "author": "Dave Meikle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmeikle/node-http-connector/issues"
+  },
+  "homepage": "https://github.com/dmeikle/node-http-connector#readme",
+  "devDependencies": {
+    "@types/node": "^22.10.5"
+  }
+}
