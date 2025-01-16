@@ -22,11 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-class HttpError extends Error {
-    constructor(public status: number, public statusText: string, public url: string) {
-        super(`HTTP Error: ${status} ${statusText} at ${url}`);
-        this.name = 'HttpError';
-    }
+export default class HttpResponse<T> {
+    constructor(
+        public data: T,
+        public status: number,
+        public headers: Headers
+    ) {}
 }
-
-export default HttpError;

@@ -24,8 +24,6 @@
  */
 
 import HttpClient from './http.client';
-
-import HttpClient from './http.client';
 import HttpResponse from './http.response';
 import HttpError from './http.error';
 import {HttpClientInterface} from "./interfaces/http.client.interface";
