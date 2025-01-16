@@ -2,10 +2,11 @@
   "name": "node-http-connector",
   "version": "1.0.3",
   "description": "generic http connector",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "prepare": "npm run build",
     "release": "standard-version",
     "prepublishOnly": "npm run release && npm run build"
   },
