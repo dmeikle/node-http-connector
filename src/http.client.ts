@@ -100,6 +100,9 @@ class HttpClient {
                 }
                 return await this.handleResponse(response);
             } catch (error) {
+                if (this.responseLoggingEnabled) {
+                    console.error(error);
+                }
                 clearTimeout(timeoutId);
                 if (attempt < this.retries - 1) {
                     console.warn(`Retrying request to ${url} (attempt ${attempt + 1})`);
