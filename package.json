@@ -1,6 +1,6 @@
 {
   "name": "node-http-connector",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "generic http connector",
   "main": "dist/index.js",
   "scripts": {
