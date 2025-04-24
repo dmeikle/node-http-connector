@@ -57,7 +57,18 @@ class HttpClient {
     }
 
     private async handleResponse(response: Response): Promise<HttpResponse<any>> {
-        const data = await response.json();
+        let data = null;
+
+        // Check if the response status indicates no content
+        if (response.status !== 204 && response.status !== 205) {
+            try {
+                // Attempt to parse the response body as JSON
+                data = await response.json();
+            } catch (error) {
+                console.warn('Failed to parse response JSON:', error);
+            }
+        }
+
         return new HttpResponse(data, response.status, response.headers);
     }
 
@@ -86,13 +97,13 @@ class HttpClient {
         options = this.applyRequestInterceptors(options);
         this.logRequest(method, url, options);
 
-        for (let attempt = 0; attempt < this.retries; attempt++) {
+        for (let attempt: number = 0; attempt < this.retries; attempt++) {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), this.timeout);
             options.signal = controller.signal;
 
             try {
-                let response = await fetch(url, options);
+                let response: Response = await fetch(url, options);
                 clearTimeout(timeoutId);
                 response = this.applyResponseInterceptors(response);
                 if (!response.ok) {
@@ -100,14 +111,14 @@ class HttpClient {
                 }
                 return await this.handleResponse(response);
             } catch (error) {
+                clearTimeout(timeoutId);
                 if (this.responseLoggingEnabled) {
                     console.error(error);
                 }
-                clearTimeout(timeoutId);
                 if (attempt < this.retries - 1) {
                     console.warn(`Retrying request to ${url} (attempt ${attempt + 1})`);
                 } else {
-                    console.error(`${method} request to ${url} failed:`, error);
+                    console.error(`${method} request to ${url} failed after ${this.retries} attempts:`, error);
                     throw error;
                 }
             }
